@@ -1,6 +1,6 @@
 #include "snake.h"
 
-#define TILE_SIZE 16 // Size of each tile in pixels
+#define TILE_SIZE 16
 
 char * get_file(FILE * fp)
 {
@@ -65,8 +65,8 @@ void render_map(SDL_Renderer *renderer, SDL_Texture *snakeTexture, char **tab, i
 }
 
 void place_food() {
-    foodRect.x = (rand() % 53 - 2) * SNAKE_SIZE;  // Random x-coordinate
-    foodRect.y = (rand() % lines) * SNAKE_SIZE;  // Random y-coordinate based on number of map lines
+    foodRect.x = (rand() % 53 - 2) * SNAKE_SIZE;
+    foodRect.y = (rand() % lines) * SNAKE_SIZE;
 }
 
 int main(int argc, char *argv[])
@@ -171,10 +171,10 @@ int main(int argc, char *argv[])
     SDL_FreeSurface(snakeSurface);
 
     SDL_Rect srcRects[4] = {
-        {0, 0, SNAKE_SIZE, SNAKE_SIZE}, //BORDER
-        {16, 0, SNAKE_SIZE, SNAKE_SIZE}, //FOOD
-        {32, 0, SNAKE_SIZE, SNAKE_SIZE}, //snake
-        {48, 0, SNAKE_SIZE, SNAKE_SIZE}, // SNeiK
+        {0, 0, SNAKE_SIZE, SNAKE_SIZE},
+        {16, 0, SNAKE_SIZE, SNAKE_SIZE},
+        {32, 0, SNAKE_SIZE, SNAKE_SIZE},
+        {48, 0, SNAKE_SIZE, SNAKE_SIZE},
     };
 
     SDL_Rect snakeRect = {424, 272, SNAKE_SIZE, SNAKE_SIZE};
@@ -211,11 +211,11 @@ int main(int argc, char *argv[])
     SDL_Event event;
     int currentDirection = 0;
     Uint32 startTime = 0;
-    const int frameDelay = 10;  // Delay in milliseconds (20 frames per second)
+    const int frameDelay = 10;
 
 while (!quit)
 {
-    startTime = SDL_GetTicks();  // Get the time at the beginning of the frame
+    startTime = SDL_GetTicks();
 
     while (SDL_PollEvent(&event))
     {
@@ -249,15 +249,14 @@ while (!quit)
 
     SDL_RenderClear(renderer);
 
-    // Render the map
+
     render_map(renderer, snakeTexture, tab, lines);
 
-    // Render the snake
     SDL_RenderCopy(renderer, snakeTexture, &srcRects[currentDirection], &snakeRect);
 
     SDL_RenderPresent(renderer);
 
-    // Delay the frame to achieve desired frame rate
+
     Uint32 frameTime = SDL_GetTicks() - startTime;
     if (frameDelay > frameTime)
     {

@@ -1,6 +1,6 @@
-NAME = prot2
+NAME = snake
 
-SRCS = v2.c
+SRCS = main.c
 
 
 all :  $(NAME)
