@@ -1,11 +1,6 @@
-
 #include "snake.h"
 
 #define TILE_SIZE 16 // Size of each tile in pixels
-
-#define WINDOW_WIDTH 864
-#define WINDOW_HEIGHT 560
-#define SNAKE_SIZE 16
 
 char * get_file(FILE * fp)
 {
@@ -69,10 +64,8 @@ void render_map(SDL_Renderer *renderer, SDL_Texture *snakeTexture, char **tab, i
     }
 }
 
-SDL_Rect foodRect;
-
 void place_food() {
-    foodRect.x = (rand() % 20) * SNAKE_SIZE;  // Random x-coordinate
+    foodRect.x = (rand() % 53 - 2) * SNAKE_SIZE;  // Random x-coordinate
     foodRect.y = (rand() % lines) * SNAKE_SIZE;  // Random y-coordinate based on number of map lines
 }
 
@@ -85,6 +78,27 @@ int main(int argc, char *argv[])
     char * line;
     int i = 0;
     int j = 0;
+
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
+    {
+        printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
+        return -1;
+    }
+
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 32768) < 0)
+    {
+        printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+        SDL_Quit();
+        return -1;
+    }
+
+    Mix_Music *backgroundMusic = Mix_LoadMUS("game_sound.mp3");
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
+        printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
+        return -1;
+    }
+
+    Mix_PlayMusic(backgroundMusic, -1);
 
     if (fp == NULL)
     {

@@ -4,25 +4,18 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 #include <string.h>
+#define SNAKE_SIZE 16
+#define WINDOW_WIDTH 864
+#define WINDOW_HEIGHT 560
 
 typedef struct {
     int x, y;
 } SnakeSegment;
 
-SnakeSegment snake[100]; // Stores up to 100 segments
-int snakeLength = 1;  // Initial length of the snake
-
-void update_snake_position() {
-    // Move the body of the snake
-    for (int i = snakeLength - 1; i > 0; i--) {
-        snake[i] = snake[i - 1];  // Shift each segment to the position of the previous one
-    }
-    // Move the head
-    if (currentDirection == 0) snake[0].y -= SNAKE_SIZE; // Up
-    else if (currentDirection == 1) snake[0].y += SNAKE_SIZE; // Down
-    else if (currentDirection == 2) snake[0].x -= SNAKE_SIZE; // Left
-    else if (currentDirection == 3) snake[0].x += SNAKE_SIZE; // Right
-}
+SnakeSegment snake[50];
+int snakeLength = 1;
+int lines;
 
 #endif 
